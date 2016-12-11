@@ -6,7 +6,7 @@ export const DASHBOARD_VISITS_COUNT = 'DASHBOARD_VISITS_COUNT'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function increment (value = 1) {
+export function dashboardVisitIncrement (value = 1) {
   return {
     type: DASHBOARD_VISITS_COUNT,
     payload: value
@@ -21,20 +21,8 @@ export function increment (value = 1) {
     you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
     reducer take care of this logic.  */
 
-export const doubleAsync = () => {
-  return (dispatch, getState) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        dispatch(increment(getState().dashboard))
-        resolve()
-      }, 200)
-    })
-  }
-}
-
 export const actions = {
-  increment,
-  doubleAsync
+  dashboardVisitIncrement
 }
 
 // ------------------------------------
