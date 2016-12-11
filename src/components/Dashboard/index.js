@@ -1,3 +1,3 @@
-import Counter from './Counter'
+import Dashboard from './Dashboard'
 
-export default Counter
+export default Dashboard
