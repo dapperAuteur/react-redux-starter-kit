@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { dashboardVisitIncrement } from '../modules/dashboard'
+import { 
+  dashboardVisitIncrement,
+  dashboardAddItem,
+  dashboardEditItem
+} from '../modules/dashboard'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -14,7 +18,9 @@ import Dashboard from 'components/Dashboard'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapActionCreators = {
-  dashboardVisitIncrement: () => dashboardVisitIncrement(1)
+  dashboardVisitIncrement: () => dashboardVisitIncrement(1),
+  dashboardAddItem: (value) => dashboardAddItem(value),
+  dashboardEditItem: (value) => dashboardEditItem(value)
 }
 
 const mapStateToProps = (state) => ({
