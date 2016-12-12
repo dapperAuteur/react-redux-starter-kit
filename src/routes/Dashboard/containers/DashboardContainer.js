@@ -29,17 +29,6 @@ const mapStateToProps = (state) => ({
   dashboard: state.dashboard
 })
 
-// class DashboardContainer extends React.Component {
-//   componentDidMount() {
-//     this.props.dashboardVisitIncrement();
-//   }
-
-//   render () {
-//     return (
-//       <Dashboard {...this.props} />
-//     );
-//   }
-// }
 class DashboardContainer extends React.Component {
   constructor(props) {
     super(props)
@@ -60,6 +49,35 @@ class DashboardContainer extends React.Component {
 
   componentDidMount() {
     this.props.dashboardVisitIncrement();
+  }
+
+  handleOnDragStart (e) {
+    const id = e.target.id
+    this.setState({ draggedItemIndex: id })
+  }
+
+  handleOnDragOver (e) {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'; // See the section on the Data transfer object.
+    // You can add here more logic if required
+  }
+
+  handleOnDrop (e) {
+    const droppedItemId = e.currentTarget.id
+    let reorderVal = {
+      start: parseInt(this.state.draggedItemIndex),
+      end: parseInt(droppedItemId)
+    }
+
+    // the div ids have to be numbers to reorder correctly
+    // and the start and end value has to be different (otherwise reorder is not required)
+    const reorderIsCorrect = !isNaN(reorderVal.start) && !isNaN(reorderVal.end) && reorderVal.start !== reorderVal.end
+
+    if(reorderIsCorrect) {
+      this.props.dashboardReorderItems(reorderVal)
+    }
+
+    this.setState({ draggedItemIndex: null })
   }
 
   inputOnChange(e) {
@@ -89,6 +107,9 @@ class DashboardContainer extends React.Component {
   render () {
     return (
       <Dashboard {...this.props}
+        handleOnDragOver={this.handleOnDragOver}
+        handleOnDrop={this.handleOnDrop}
+        handleDragStart={this.handleDragStart}
         editedItemIndex={this.state.editedItemIndex}
         itemOnEdit={this.itemOnEdit}
         inputValue={this.state.inputValue}

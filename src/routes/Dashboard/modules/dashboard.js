@@ -96,8 +96,11 @@ const ACTION_HANDLERS = {
         }
       //}
     })
-    state.dashboardItems = newDashBoardItems
-    return Object.assign({}, state)
+    // state.dashboardItems = newDashBoardItems
+    // return Object.assign({}, state)
+    return Object.assign({}, state, {
+      dashboardItems: newDashBoardItems
+    })
   }
 }
 // const ACTION_HANDLERS = {
