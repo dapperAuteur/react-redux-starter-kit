@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { 
   dashboardVisitIncrement,
   dashboardAddItem,
-  dashboardEditItem
+  dashboardEditItem,
+  dashboardReorderItems
 } from '../modules/dashboard'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -20,7 +21,8 @@ import Dashboard from 'components/Dashboard'
 const mapActionCreators = {
   dashboardVisitIncrement: () => dashboardVisitIncrement(1),
   dashboardAddItem: (value) => dashboardAddItem(value),
-  dashboardEditItem: (value) => dashboardEditItem(value)
+  dashboardEditItem: (value) => dashboardEditItem(value),
+  dashboardReorderItems: (value) => dashboardReorderItems(value)
 }
 
 const mapStateToProps = (state) => ({
@@ -45,10 +47,14 @@ class DashboardContainer extends React.Component {
     this.inputOnChange = this.inputOnChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.itemOnEdit = this.itemOnEdit.bind(this)
+    this.handleDragStart = this.handleOnDragStart.bind(this)
+    this.handleOnDrop = this.handleOnDrop.bind(this)
+    this.handleOnDragOver = this.handleOnDragOver.bind(this)
 
-    this.state ={
+    this.state = {
       inputValue: '',
-      editedItemIndex: null
+      editedItemIndex: null,
+      draggedItemIndex: null
     }
   }
 
